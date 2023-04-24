@@ -2,7 +2,7 @@
 //! A way to get resources that implements a specific trait.
 //! 
 //! ```rust
-//! use bevy_trait_resource::*;
+//!# use bevy_trait_resource::*;
 //! use bevy::prelude::*;
 //! use bevy_trait_resource::{trait_resource, TraitResourceExt};
 //! 
