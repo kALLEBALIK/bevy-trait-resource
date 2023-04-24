@@ -58,5 +58,5 @@ impl Plugin for SomePlugin {
 ```
 Unregistering.
 ```rust
-world.unregister_resource_from_trait::<dyn IncrementTrait, NumberValueResource>();
+app.unregister_resource_from_trait::<dyn IncrementTrait, NumberValueResource>();
 ```
