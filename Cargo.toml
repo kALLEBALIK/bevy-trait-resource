@@ -1,0 +1,19 @@
+[package]
+name = "bevy-trait-resource"
+version = "0.1.0"
+edition = "2021"
+
+license = "MIT"
+keywords = ["bevy", "gamedev", "plugin", "resource", "trait"]
+categories = ["game-development"]
+repository = "https://github.com/kALLEBALIK/bevy-trait-resource"
+description = "Get resources by trait"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bevy-trait-resource-macro = { path = "proc-macro", version = "0.1.0" }
+
+[dependencies.bevy]
+version = "0.10.0"
+default-features = false
