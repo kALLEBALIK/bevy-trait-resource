@@ -3,6 +3,12 @@ name = "bevy-trait-resource-macro"
 version = "0.1.0"
 edition = "2021"
 
+license = "MIT"
+keywords = ["bevy", "gamedev", "plugin", "resource", "trait"]
+categories = ["game-development"]
+repository = "https://github.com/kALLEBALIK/bevy-trait-resource/tree/main/proc-macro"
+description = "Procedural macro for `bevy-trait-resource`"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
