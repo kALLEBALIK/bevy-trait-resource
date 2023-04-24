@@ -261,7 +261,7 @@ pub trait TraitResourceExt {
     /// If the resource is already registered nothing will happen.
     /// # Panics 
     /// Panics if the resource does not exist.
-    fn register_resource_as<Trait: ?Sized + TraitResource, R: Resource>(&mut self)
+    fn register_resource_as<Trait: ?Sized + TraitResource, R: Resource>(&mut self) -> &mut Self
     where (R,): TraitResourceMarker<Trait, Covered = R>;
 
     /// Get [`TraitResourceIterator<Trait>`]
@@ -296,7 +296,7 @@ impl TraitResourceExt for World {
         self
     }
 
-    fn register_resource_as<Trait: ?Sized + TraitResource, R: Resource>(&mut self)
+    fn register_resource_as<Trait: ?Sized + TraitResource, R: Resource>(&mut self) -> &mut Self
     where
         (R,): TraitResourceMarker<Trait, Covered = R>,
     {
@@ -315,6 +315,7 @@ impl TraitResourceExt for World {
         };
 
         resource_registry.register(trait_data);
+        self
     }
 
     fn get_resources_trait<Trait: ?Sized + TraitResource>(&self) -> TraitResourceIterator<Trait> {
@@ -370,11 +371,12 @@ impl TraitResourceExt for App {
         self
     }
 
-    fn register_resource_as<Trait: ?Sized + TraitResource, R: Resource>(&mut self)
+    fn register_resource_as<Trait: ?Sized + TraitResource, R: Resource>(&mut self) -> &mut Self
     where
         (R,): TraitResourceMarker<Trait, Covered = R> 
     {
         self.world.register_resource_as::<Trait, R>();
+        self
     }
 
     fn get_resources_trait<Trait: ?Sized + TraitResource>(&self) -> TraitResourceIterator<Trait> {

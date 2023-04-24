@@ -173,8 +173,8 @@ fn register_resource_trait() {
 fn register_multiple_traits_on_resource() {
     let mut world = World::new();
     world.init_resource::<NumberValueResource2>();
-    world.register_resource_as::<dyn IncrementTrait, NumberValueResource2>();
-    world.register_resource_as::<dyn IncrementStringTrait, NumberValueResource2>();
+    world.register_resource_as::<dyn IncrementTrait, NumberValueResource2>()
+         .register_resource_as::<dyn IncrementStringTrait, NumberValueResource2>();
 
     let mut schedule = Schedule::new();
 
