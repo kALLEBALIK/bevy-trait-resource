@@ -2,6 +2,7 @@
 //! A way to get resources that implements a specific trait.
 //! 
 //! ```rust
+//! use bevy_trait_resource::*;
 //! use bevy::prelude::*;
 //! use bevy_trait_resource::{trait_resource, TraitResourceExt};
 //! 
@@ -17,6 +18,12 @@
 //! }
 //! 
 //! impl IncrementTrait for NumberValueResource {
+//!#     fn value(&self) -> i32 {
+//!#         self.value
+//!#     }
+//!#     fn increment(&mut self) {
+//!#         self.value += 1;
+//!#     }
 //!     // Trait implementation...
 //! }
 //! 
@@ -36,10 +43,60 @@
 //!         app.add_system(increment_value_system);
 //!     }
 //! }
-//! 
+//!# 
+//!# fn main() {
+//!#    App::new()
+//!#        .add_plugin(SomePlugin)
+//!#        .run();
+//!# }
 //! ```
 //! You can also register a resource to multiple traits.
 //! ```rust
+//!# use bevy_trait_resource::*;
+//!# use bevy::prelude::*;
+//!# use bevy_trait_resource::{trait_resource, TraitResourceExt};
+//!# 
+//!# #[trait_resource]
+//!# pub trait IncrementTrait {
+//!#     fn value(&self) -> i32;
+//!#     fn increment(&mut self);
+//!# }
+//!# 
+//!# #[derive(Resource, Default)]
+//!# struct NumberValueResource {
+//!#     value: i32,
+//!# }
+//!# 
+//!# impl IncrementTrait for NumberValueResource {
+//!#     fn value(&self) -> i32 {
+//!#         self.value
+//!#     }
+//!#     fn increment(&mut self) {
+//!#         self.value += 1;
+//!#     }
+//!# }
+//!# 
+//!# #[trait_resource]
+//!# pub trait SomeOtherTrait  {
+//!#     fn some_other_value(&self) -> i32;
+//!# }
+//!# 
+//!# impl SomeOtherTrait for NumberValueResource {
+//!#     fn some_other_value(&self) -> i32 {
+//!#         self.value
+//!#     }
+//!# }
+//!# 
+//!# pub fn increment_value_system(world: &mut World) {
+//!#     for res_opt in world.get_resources_trait_mut::<dyn IncrementTrait>() {
+//!#         if let Some(res) = res_opt {
+//!#             res.increment();
+//!#         }
+//!#     }
+//!# } 
+//!# 
+//!# struct SomePlugin;
+//!# 
 //! impl Plugin for SomePlugin {
 //!     fn build(&self, app: &mut App) {
 //!         app.init_resource::<NumberValueResource>();
@@ -48,10 +105,52 @@
 //!            .register_resource_as::<dyn SomeOtherTrait, NumberValueResource>();
 //!     }
 //! }
+//! 
+//!# fn main() {
+//!#    App::new()
+//!#        .add_plugin(SomePlugin)
+//!#        .run();
+//!# }
 //! ```
 //! Unregistering.
 //! ```rust
-//! world.unregister_resource_from_trait::<dyn IncrementTrait, NumberValueResource>();
+//!# use bevy_trait_resource::*;
+//!# use bevy::prelude::*;
+//!# use bevy_trait_resource::{trait_resource, TraitResourceExt};
+//!# 
+//!# #[trait_resource]
+//!# pub trait IncrementTrait {
+//!#     fn value(&self) -> i32;
+//!#     fn increment(&mut self);
+//!# }
+//!# 
+//!# #[derive(Resource, Default)]
+//!# struct NumberValueResource {
+//!#     value: i32,
+//!# }
+//!# 
+//!# impl IncrementTrait for NumberValueResource {
+//!#     fn value(&self) -> i32 {
+//!#         self.value
+//!#     }
+//!#     fn increment(&mut self) {
+//!#         self.value += 1;
+//!#     }
+//!# }
+//!# 
+//!# struct SomePlugin; 
+//!#
+//!# impl Plugin for SomePlugin {
+//!#    fn build(&self, app: &mut App) {
+//! app.unregister_resource_from_trait::<dyn IncrementTrait, NumberValueResource>();
+//!#    }
+//!# }
+//!#
+//!# fn main() {
+//!#    App::new()
+//!#        .add_plugin(SomePlugin)
+//!#        .run();
+//!# }
 //! ```
 
 use std::marker::PhantomData;
