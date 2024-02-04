@@ -40,13 +40,13 @@
 //! impl Plugin for SomePlugin {
 //!     fn build(&self, app: &mut App) {
 //!         app.init_resource_as::<dyn IncrementTrait, NumberValueResource>();
-//!         app.add_system(increment_value_system);
+//!         app.add_systems(Update, increment_value_system);
 //!     }
 //! }
 //!# 
 //!# fn main() {
 //!#    App::new()
-//!#        .add_plugin(SomePlugin)
+//!#        .add_plugins(SomePlugin)
 //!#        .run();
 //!# }
 //! ```
@@ -108,7 +108,7 @@
 //! 
 //!# fn main() {
 //!#    App::new()
-//!#        .add_plugin(SomePlugin)
+//!#        .add_plugins(SomePlugin)
 //!#        .run();
 //!# }
 //! ```
@@ -148,7 +148,7 @@
 //!#
 //!# fn main() {
 //!#    App::new()
-//!#        .add_plugin(SomePlugin)
+//!#        .add_plugins(SomePlugin)
 //!#        .run();
 //!# }
 //! ```

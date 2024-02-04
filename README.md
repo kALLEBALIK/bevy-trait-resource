@@ -1,6 +1,12 @@
 # bevy-trait-resource
 A way to get resources that implements a specific trait.
 
+| Bevy Version | Crate Version |
+|--------------|---------------|
+| 0.12         | 0.3           |
+| 0.11         | ---           |
+| 0.10         | 0.1           |
+
 ## Note
 This crate is highly experimental.
 
@@ -40,7 +46,7 @@ struct SomePlugin;
 impl Plugin for SomePlugin {
     fn build(&self, app: &mut App) {
         app.init_resource_as::<dyn IncrementTrait, NumberValueResource>();
-        app.add_system(increment_value_system);
+        app.add_systems(Update, increment_value_system);
     }
 }
 

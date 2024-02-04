@@ -82,9 +82,9 @@ fn increment() {
     let mut world = World::new();
     world.init_resource_as::<dyn IncrementTrait, NumberValueResource>();
 
-    let mut schedule = Schedule::new();
+    let mut schedule = Schedule::new(Update);
 
-    schedule.add_system(increment_value_test_system);
+    schedule.add_systems(increment_value_test_system);
 
     schedule.run(&mut world);
     schedule.run(&mut world);
@@ -101,9 +101,9 @@ fn increment_multiple() {
         value: 3,
     });
 
-    let mut schedule = Schedule::new();
+    let mut schedule = Schedule::new(Update);
 
-    schedule.add_system(increment_value_test_system);
+    schedule.add_systems(increment_value_test_system);
 
     schedule.run(&mut world);
     schedule.run(&mut world);
@@ -124,9 +124,9 @@ fn getting_removed_resource_should_not_panic() {
         value: 3,
     });
 
-    let mut schedule = Schedule::new();
+    let mut schedule = Schedule::new(Update);
 
-    schedule.add_system(increment_value_test_system);
+    schedule.add_systems(increment_value_test_system);
 
     schedule.run(&mut world);
 
@@ -158,9 +158,9 @@ fn register_resource_trait() {
     world.init_resource::<NumberValueResource>();
     world.register_resource_as::<dyn IncrementTrait, NumberValueResource>();
 
-    let mut schedule = Schedule::new();
+    let mut schedule = Schedule::new(Update);
 
-    schedule.add_system(increment_value_test_system);
+    schedule.add_systems(increment_value_test_system);
 
     schedule.run(&mut world);
     assert_eq!(world.resource::<NumberValueResource>().value(), 1);
@@ -176,10 +176,10 @@ fn register_multiple_traits_on_resource() {
     world.register_resource_as::<dyn IncrementTrait, NumberValueResource2>()
          .register_resource_as::<dyn IncrementStringTrait, NumberValueResource2>();
 
-    let mut schedule = Schedule::new();
+    let mut schedule = Schedule::new(Update);
 
-    schedule.add_system(increment_value_test_system);
-    schedule.add_system(increment_string_value_test_system);
+    schedule.add_systems(increment_value_test_system);
+    schedule.add_systems(increment_string_value_test_system);
 
     schedule.run(&mut world);
     assert_eq!(world.resource::<NumberValueResource2>().value(), 1);
