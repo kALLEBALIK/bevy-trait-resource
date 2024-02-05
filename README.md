@@ -3,7 +3,7 @@ A way to get resources that implements a specific trait.
 
 | Bevy Version | Crate Version |
 |--------------|---------------|
-| 0.12         | 0.3           |
+| 0.12         | 0.2           |
 | 0.11         | ---           |
 | 0.10         | 0.1           |
 
